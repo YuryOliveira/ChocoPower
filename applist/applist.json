@@ -1,6 +1,34 @@
 [
     {
+        "Name":  "7zip.install",
+        "Args":  null
+    },
+    {
+        "Name":  "googlechrome",
+        "Args":  null
+    },
+    {
+        "Name":  "jre8",
+        "Args":  null
+    },
+    {
+        "Name":  "vcredist140",
+        "Args":  null
+    },
+    {
+        "Name":  "k-litecodecpackfull",
+        "Args":  null
+    },
+    {
+        "Name":  "whatsapp",
+        "Args":  null
+    },
+    {
         "Name":  "office2019proplus",
         "Args":  "/ConfigPath:https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/applist/deployment_office2019.xml"
+    },
+    {
+        "Name":  "adobereader",
+        "Args":  "/DesktopIcon /UpdateMode:4"
     }
 ]
