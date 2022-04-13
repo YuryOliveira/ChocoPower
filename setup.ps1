@@ -17,5 +17,3 @@ $applist | ForEach-Object {
         choco install $_.Name --y --force
     }
 }
-
-remove-item C:\ProgramData\chocolatey -Recurse -Force 
