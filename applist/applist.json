@@ -25,7 +25,7 @@
     },
     {
         "Name":  "office2019proplus",
-        "Args":  "/ConfigPath:https://raw.githubusercontent.com/dsbnogueira/deployment_tools/main/deployment_office2019.xml"
+        "Args":  "/ConfigPath:https://https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/applist/deployment_office2019.xml"
     },
     {
         "Name":  "adobereader",
