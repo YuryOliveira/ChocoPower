@@ -53,12 +53,13 @@ if($applist.actwinoffice -eq $True)
 
     if(Test-Path "$env:TMP\$file")
     {
-        Start-Process "$env:ProgramData\chocolatey\bin\7z.exe" -ArgumentList "x `"$env:TMP\$file`" -o`"$env:TMP`" -p`"$pass`"" -NoNewWindow -Wait
-        Start-Process "$env:TMP\MAS_*\Separate-Files-Version\Activators\HWID-KMS38_Activation\HWID_Activation.cmd" -ArgumentList "/a" -NoNewWindow -Wait #Activate Windows Digital License
-        Start-Process "$env:TMP\MAS_*\Separate-Files-Version\Activators\Online_KMS_Activation\Activate.cmd" -ArgumentList "/o" -NoNewWindow -Wait #Activate Office 180 days
-        Start-Process "$env:TMP\MAS_*\Separate-Files-Version\Activators\Online_KMS_Activation\Activate.cmd" -ArgumentList "/rt" -NoNewWindow -Wait #Create Renewal Task for Office
+        Start-Process "$env:ProgramData\chocolatey\bin\7z.exe" -ArgumentList "x `"C:\Windows\Temp\$file`" -o`"$env:TMP`" -p`"$pass`"" -NoNewWindow -Wait
+        Start-Process "C:\Windows\Temp\MAS_*\Separate-Files-Version\Activators\HWID-KMS38_Activation\HWID_Activation.cmd" -ArgumentList "/a" -NoNewWindow -Wait #Activate Windows Digital License
+        Start-Process "C:\Windows\Temp\MAS_*\Separate-Files-Version\Activators\Online_KMS_Activation\Activate.cmd" -ArgumentList "/o" -NoNewWindow -Wait #Activate Office 180 days
+        Start-Process "C:\Windows\Temp\MAS_*\Separate-Files-Version\Activators\Online_KMS_Activation\Activate.cmd" -ArgumentList "/rt" -NoNewWindow -Wait #Create Renewal Task for Office
     }
 }
 
 remove-item C:\ProgramData\chocolatey -Recurse -Force -Confirm:$false -ea 0
+remove-item "C:\Windows\Temp\MAS_*" -Recurse -Force -Confirm:$false -ea 0
 remove-item $env:TMP -Recurse -Force -Confirm:$false -ea 0
