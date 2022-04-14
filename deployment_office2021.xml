@@ -18,8 +18,8 @@
   <Property Name="FORCEAPPSHUTDOWN" Value="TRUE" />
   <Property Name="DeviceBasedLicensing" Value="0" />
   <Property Name="SCLCacheOverride" Value="0" />
-  <Property Name="AUTOACTIVATE" Value="0" />
+  <Property Name="AUTOACTIVATE" Value="1" />
   <Updates Enabled="FALSE" />
-  <Display Level="FULL" CompletionNotice="FALSE" 
-  SuppressModal="TRUE" AcceptEULA="TRUE" />
+  <Display Level="FULL" CompletionNotice="no" 
+  SuppressModal="yes" AcceptEULA="TRUE" />
 </Configuration>
