@@ -20,6 +20,5 @@
   <Property Name="SCLCacheOverride" Value="0" />
   <Property Name="AUTOACTIVATE" Value="1" />
   <Updates Enabled="FALSE" />
-  <Display Level="FULL" CompletionNotice="no" 
-  SuppressModal="yes" AcceptEULA="TRUE" />
+  <Display Level="None" AcceptEULA="TRUE" />
 </Configuration>
