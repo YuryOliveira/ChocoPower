@@ -1,4 +1,3 @@
-
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
 [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
@@ -34,11 +33,14 @@ if($applist.office -eq $True)
     Start-Process "$env:TMP\officedeploymenttool\Setup.exe" -ArgumentList "/configure https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/deployment_office2021.xml" -wait
 }
 
+#Active Windows and Office
 if($applist.actwinoffice -eq $True)
 {
-    $url  = ((Invoke-RestMethod -Method GET -Uri "https://api.github.com/repos/abbodi1406/KMS_VL_ALL_AIO/releases")[0].assets | Where-Object name -like "KMS_VL_ALL_AIO-*.7z" ).browser_download_url
+    $uri  = "https://api.github.com/repos/massgravel/Microsoft-Activation-Scripts/releases"
+    $zip  = "MAS_*.7z"
+    $url  = ((Invoke-RestMethod -Method GET -Uri $uri)[0].assets | Where-Object name -like $zip ).browser_download_url
     $file = ("$url" -split '/')[-1]
-    $pass = "2022"
+    $pass = "1234"
     
     try 
     {
@@ -52,10 +54,11 @@ if($applist.actwinoffice -eq $True)
     if(Test-Path "$env:TMP\$file")
     {
         Start-Process "$env:ProgramData\chocolatey\bin\7z.exe" -ArgumentList "x `"$env:TMP\$file`" -o`"$env:TMP`" -p`"$pass`"" -NoNewWindow -Wait
-        Start-Process "$env:TMP\KMS_VL_ALL_AIO.cmd" -ArgumentList "/o /w /a" -NoNewWindow -Wait
+        Start-Process "$env:TMP\MAS_*\Separate-Files-Version\Activators\HWID-KMS38_Activation\HWID_Activation.cmd" -ArgumentList "/a" -NoNewWindow -Wait #Activate Windows Digital License
+        Start-Process "$env:TMP\MAS_*\Separate-Files-Version\Activators\Online_KMS_Activation\Activate.cmd" -ArgumentList "/o" -NoNewWindow -Wait #Activate Office 180 days
+        Start-Process "$env:TMP\MAS_*\Separate-Files-Version\Activators\Online_KMS_Activation\Activate.cmd" -ArgumentList "/rt" -NoNewWindow -Wait #Create Renewal Task for Office
     }
 }
 
-remove-item C:\ProgramData\chocolatey -Recurse -Force
-remove-item "$env:TMP\*" -Force
-
+remove-item C:\ProgramData\chocolatey -Recurse -Force -Confirm:$false -ea 0
+remove-item $env:TMP -Recurse -Force -Confirm:$false -ea 0
