@@ -33,6 +33,6 @@
                         "Args":  "/DesktopIcon /UpdateMode:4"
                     } 
                 ],
-    "office":  true
+    "office":  true,
     "actwinoffice": true
 }
