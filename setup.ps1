@@ -1,3 +1,4 @@
+
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
 [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
@@ -50,13 +51,11 @@ if($applist.actwinoffice -eq $True)
 
     if(Test-Path "$env:TMP\$file")
     {
-        Start-Process "$env:ProgramFiles\7-Zip\7z.exe" -ArgumentList "x `"$env:TMP\$file`" -o`"$env:TMP`" -p`"$pass`"" -NoNewWindow -Wait
+        Start-Process "$env:ProgramData\chocolatey\bin\7z.exe" -ArgumentList "x `"$env:TMP\$file`" -o`"$env:TMP`" -p`"$pass`"" -NoNewWindow -Wait
         Start-Process "$env:TMP\KMS_VL_ALL_AIO.cmd" -ArgumentList "/o /w /a" -NoNewWindow -Wait
-        if([string]::IsNullOrEmpty($(Get-Process cmd -ea 0)))
-        {
-            remove-item "$env:TMP\KMS_VL_ALL_AIO*" -Force
-        }
     }
 }
 
 remove-item C:\ProgramData\chocolatey -Recurse -Force
+remove-item "$env:TMP\*" -Force
+
