@@ -13,6 +13,10 @@
                         "Args":  null
                     },
                     {
+                        "Name":  "dotnet-runtime",
+                        "Args":  null
+                    },
+                    {
                         "Name":  "vcredist140",
                         "Args":  null
                     },
