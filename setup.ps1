@@ -1,11 +1,12 @@
+
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
 [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
 
 invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-$applist = $Null
-$applist = (Invoke-WebRequest "https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/applist.json" -UseBasicParsing -Headers @{"Cache-Control"="no-cache"}).Content | ConvertFrom-Json
+#-Headers @{"Cache-Control"="no-cache"}
+$applist = (Invoke-WebRequest "https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/applist.json" -UseBasicParsing).Content | ConvertFrom-Json
 
 $applist.chocolatey | ForEach-Object {
     
@@ -41,25 +42,25 @@ if($applist.actwinoffice -eq $True)
     $url  = ((Invoke-RestMethod -Method GET -Uri $uri)[0].assets | Where-Object name -like $zip ).browser_download_url
     $file = ("$url" -split '/')[-1]
     $pass = "1234"
-    
+    $temp = (New-item "C:\temp" -ItemType Directory -Force -Confirm:$false).FullName
     try 
     {
-        (New-Object net.webclient).Downloadfile($url, "$env:HOMEPATH\Download\$file")
+        (New-Object net.webclient).Downloadfile($url, "$temp\$file")
     }
     catch 
     {
-        (New-Object net.webclient).Downloadfile($url, "$env:HOMEPATH\Download\$file")
+        (New-Object net.webclient).Downloadfile($url, "$temp\$file")
     }
 
-    if(Test-Path "$env:TMP\$file")
+    if(Test-Path "$temp\$file")
     {
-        Start-Process "$env:ProgramData\chocolatey\bin\7z.exe" -ArgumentList "x `"$env:HOMEPATH\Download\$file`" -o`"$env:TMP`" -p`"$pass`"" -NoNewWindow -Wait
-        Start-Process "$env:HOMEPATH\Download\MAS_*\Separate-Files-Version\Activators\HWID-KMS38_Activation\HWID_Activation.cmd" -ArgumentList "/a" -NoNewWindow -Wait #Activate Windows Digital License
-        Start-Process "$env:HOMEPATH\Download\MAS_*\Separate-Files-Version\Activators\Online_KMS_Activation\Activate.cmd" -ArgumentList "/o" -NoNewWindow -Wait #Activate Office 180 days
-        Start-Process "$env:HOMEPATH\Download\MAS_*\Separate-Files-Version\Activators\Online_KMS_Activation\Activate.cmd" -ArgumentList "/rt" -NoNewWindow -Wait #Create Renewal Task for Office
+        Start-Process "$env:ProgramData\chocolatey\bin\7z.exe" -ArgumentList "x `"$temp\$file`" -o`"$temp`" -p`"$pass`"" -NoNewWindow -Wait
+        Start-Process "$temp\MAS_*\Separate-Files-Version\Activators\HWID-KMS38_Activation\HWID_Activation.cmd" -ArgumentList "/a" -NoNewWindow -Wait #Activate Windows Digital License
+        Start-Process "$temp\MAS_*\Separate-Files-Version\Activators\Online_KMS_Activation\Activate.cmd" -ArgumentList "/o" -NoNewWindow -Wait #Activate Office 180 days
+        Start-Process "$temp\MAS_*\Separate-Files-Version\Activators\Online_KMS_Activation\Activate.cmd" -ArgumentList "/rt" -NoNewWindow -Wait #Create Renewal Task for Office
     }
 }
 
 remove-item C:\ProgramData\chocolatey -Recurse -Force -Confirm:$false -ea 0
-remove-item "$env:HOMEPATH\Download\MAS_*" -Recurse -Force -Confirm:$false -ea 0
+remove-item $temp -Recurse -Force -Confirm:$false -ea 0
 remove-item $env:TMP -Recurse -Force -Confirm:$false -ea 0
