@@ -5,10 +5,14 @@ powershell -command "invoke-expression ((New-Object System.Net.WebClient).Downlo
 Set-ExecutionPolicy Bypass -Scope Process -Force
 [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
 
+$MyInvocation | fl *
+$MyInvocation.BoundParameters | fl *
+$MyInvocation.UnboundArguments | fl *
+pause
 
 if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
     if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
-        #Start-Process -FilePath PowerShell.exe -Verb RunAs -ArgumentList $MyInvocation.UnboundArguments
+        Start-Process -FilePath PowerShell.exe -Verb RunAs -ArgumentList $MyInvocation.UnboundArguments
         $MyInvocation | fl *
         $MyInvocation.BoundParameters | fl *
         $MyInvocation.UnboundArguments | fl *
@@ -19,7 +23,7 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
 #-Headers @{"Cache-Control"="no-cache"}
-$applist = (Invoke-WebRequest "https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/applist.json" -UseBasicParsing -Headers @{"Cache-Control"="no-cache"}).Content | ConvertFrom-Json
+$applist = (Invoke-WebRequest "https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/applist.json" -UseBasicParsing).Content | ConvertFrom-Json
 
 function Start_Install 
 {
