@@ -2,37 +2,100 @@
     "chocolatey": [
                    {
                         "Name":  "7zip.install",
-                        "Args":  null
+                        "Args":  null,
+                        "Enable": true
                     },
                     {
                         "Name":  "googlechrome",
-                        "Args":  null
+                        "Args":  null,
+                        "Enable": true
                     },
                     {
                         "Name":  "jre8",
-                        "Args":  null
+                        "Args":  null,
+                        "Enable": true
                     },
                     {
                         "Name":  "dotnet-runtime",
-                        "Args":  null
+                        "Args":  null,
+                        "Enable": true
                     },
                     {
                         "Name":  "vcredist140",
-                        "Args":  null
+                        "Args":  null,
+                        "Enable": true
                     },
                     {
                         "Name":  "k-litecodecpackfull",
-                        "Args":  null
+                        "Args":  null,
+                        "Enable": true
                     },
                     {
-                        "Name":  "whatsapp",
-                        "Args":  null
+                        "Name":  "vscode",
+                        "Args":  null,
+                        "Enable": true
                     },
                     {
                         "Name":  "adobereader",
-                        "Args":  "/DesktopIcon /UpdateMode:4"
-                    } 
+                        "Args":  "/NoUpdates",
+                        "Enable": true
+                    },
+                    {
+                        "Name":  "autodesk-fusion360",
+                        "Args":  null,
+                        "Enable": true
+                    },
+                    {
+                        "Name":  "hwinfo.install",
+                        "Args":  null,
+                        "Enable": true
+                    },
+                    {
+                        "Name":  "steam-client",
+                        "Args":  null,
+                        "Enable": true
+                    },
+                    {
+                        "Name":  "msiafterburner",
+                        "Args":  null,
+                        "Enable": true
+                    },
+                    {
+                        "Name":  "powershell-core",
+                        "Args":  null,
+                        "Enable": true
+                    },
+                    {
+                        "Name":  "postman",
+                        "Args":  null,
+                        "Enable": true
+                    },
+                    {
+                        "Name":  "sharex",
+                        "Args":  null,
+                        "Enable": true
+                    },
+                    {
+                        "Name":  "rdmfree",
+                        "Args":  null,
+                        "Enable": true
+                    },
+                    {
+                        "Name":  "anydesk.install",
+                        "Args":  null,
+                        "Enable": true
+                    }
                 ],
-    "office":  true,
-    "actwinoffice": true
+    "custom": [
+                {
+                    "Name":  "office",
+                    "Args":  null,
+                    "Enable": true
+                },
+                {
+                    "Name":  "actwinoffice",
+                    "Args":  null,
+                    "Enable": true
+                }
+            ]
 }
