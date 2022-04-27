@@ -61,6 +61,5 @@ if($applist.actwinoffice -eq $True)
     }
 }
 
-remove-item C:\ProgramData\chocolatey -Recurse -Force -Confirm:$false -ea 0
-remove-item $temp -Recurse -Force -Confirm:$false -ea 0
-remove-item $env:TMP -Recurse -Force -Confirm:$false -ea 0
+$("C:\ProgramData\chocolatey",$temp,$env:TMP) | ForEach-Object {remove-item $_ -Recurse -Force -Confirm:$false -ea 0}
+
