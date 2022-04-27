@@ -8,7 +8,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 
 if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
     if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
-        Start-Process -FilePath PowerShell.exe -Verb RunAs -ArgumentList $MyInvocation.UnboundArguments
+        #Start-Process -FilePath PowerShell.exe -Verb RunAs -ArgumentList $MyInvocation.UnboundArguments
         $MyInvocation | fl *
         $MyInvocation.BoundParameters | fl *
         $MyInvocation.UnboundArguments | fl *
