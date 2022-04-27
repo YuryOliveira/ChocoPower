@@ -1,6 +1,6 @@
 <#
 .EXAMPLE
-powershell -Verb RunAs -command "invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/setup.ps1'))"
+powershell -command "invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/setup.ps1'))" -verb runas
 #>
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
