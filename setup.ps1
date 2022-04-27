@@ -2,18 +2,17 @@
 .EXAMPLE
 powershell -command "invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/setup.ps1'))"
 #>
-
-Set-ExecutionPolicy Bypass -Scope Process -Force
-
-[Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
-
 if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
     if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
-        $Command = "-File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
+        $Command = $MyInvocation.UnboundArguments
         Start-Process -FilePath PowerShell.exe -Verb RunAs -ArgumentList $Command
         Exit
  }
 }
+
+Set-ExecutionPolicy Bypass -Scope Process -Force
+
+[Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
 
 invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
