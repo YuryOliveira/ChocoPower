@@ -1,9 +1,20 @@
 <#
 .EXAMPLE
-powershell -command "invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/setup.ps1'))"
+Iniciar instalação pelo teclado Win+R
+PowerShell -Command "& {Start-Process PowerShell -Verb RunAs -ArgumentList {invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/setup.ps1'))}}"
+.EXAMPLE
+Iniciar instalação pelo terminal PS ou por script .ps1
+Start-Process PowerShell -Verb RunAs -ArgumentList {invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/setup.ps1'))}}
 #>
-pause
 Set-ExecutionPolicy Bypass -Scope Process -Force
+
+if (-Not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
+        Start-Process PowerShell -Verb RunAs -ArgumentList "invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/setup.ps1'))";
+        Exit;
+    }
+}
+
 [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
 
 $temp = (New-item "C:\$(New-Guid)" -ItemType Directory -Force -Confirm:$false).FullName
