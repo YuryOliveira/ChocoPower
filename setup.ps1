@@ -2,6 +2,7 @@
 .EXAMPLE
 powershell -command "invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/setup.ps1'))"
 #>
+pause
 Set-ExecutionPolicy Bypass -Scope Process -Force
 [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
 
