@@ -1,11 +1,9 @@
 <#
 .EXAMPLE
-Iniciar instalação pelo teclado Win+R
-PowerShell -Command "& {Start-Process PowerShell -Verb RunAs -ArgumentList {invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/setup.ps1'))}}"
-.EXAMPLE
-Iniciar instalação pelo terminal PS ou por script .ps1
-Start-Process PowerShell -Verb RunAs -ArgumentList {invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/setup.ps1'))}}
+Iniciar instalação pelo teclado Win+R, Powershell Terminal ou Script .ps1
+powershell -command "invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/setup.ps1'))"
 #>
+
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
 if (-Not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
