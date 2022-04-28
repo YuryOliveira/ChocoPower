@@ -1,7 +1,14 @@
 <#
+.DESCRIPTION
+ Pós-instalação do Windows 10/11
+ . Instala uma lista de aplicativos utilizando o repositório Chocolatey.
+ . Instala Office de forma customizada via deployment sempre com o pacote mais recente.
+ . Ativa o Windows (Licença Digital) e Office (180dias + Renew)
+ . Para adicionar, editar ou remover pacotes basta editar o arquivo applist.json mantendo a estrutura atual.
+ . Para editar a instalação do Office basta editar o arquivo deployment_office2021.xml.
 .EXAMPLE
-Iniciar instalação pelo teclado Win+R, Powershell Terminal ou Script .ps1
-powershell -command "invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/setup.ps1'))"
+ Iniciar instalação pelo teclado Win+R, Powershell Terminal ou Script .ps1
+ powershell -command "invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/setup.ps1'))"
 #>
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
@@ -19,8 +26,7 @@ $temp = (New-item "C:\$(New-Guid)" -ItemType Directory -Force -Confirm:$false).F
 
 invoke-expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-#-Headers @{"Cache-Control"="no-cache"}
-$applist = (Invoke-WebRequest "https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/applist.json" -UseBasicParsing).Content | ConvertFrom-Json
+$applist = (Invoke-WebRequest "https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/applist.json" -UseBasicParsing).Content | ConvertFrom-Json #-Headers @{"Cache-Control"="no-cache"}
 
 function Start_Install 
 {
@@ -53,7 +59,7 @@ function Start_Install
             }
         }
     }}
-    
+
     $("C:\ProgramData\chocolatey",$temp,$env:TMP) | & { process {remove-item $_ -Recurse -Force -Confirm:$false -ea 0}}
 }
 
@@ -68,6 +74,7 @@ function Custom_Install($name,$arg)
             $Uri  = "https://www.microsoft.com/en-us/download/confirmation.aspx?id=49117"
             $url  = ((Invoke-WebRequest $Uri -UseBasicParsing ).Links | Where-Object {$_.outerHTML -match "click here to download manually"}).href
             (New-Object net.webclient).Downloadfile($url, $file)
+            Write-Host "Installing Office 2021 LTSC" -ForegroundColor Green
             Start-Process "$env:TMP\officedeploymenttool.exe" -ArgumentList "/quiet /extract:`"$env:TMP\officedeploymenttool`"" -NoNewWindow -Wait
             Start-Process "$env:TMP\officedeploymenttool\Setup.exe" -ArgumentList "/configure https://raw.githubusercontent.com/YuryOliveira/ChocoPower/main/deployment_office2021.xml" -NoNewWindow -Wait
         }
