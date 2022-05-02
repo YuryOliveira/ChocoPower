@@ -76,6 +76,11 @@
                         "Enable": true
                     },
                     {
+                        "Name":  "git",
+                        "Args":  null,
+                        "Enable": true
+                    },
+                    {
                         "Name":  "rdmfree",
                         "Args":  null,
                         "Enable": true
