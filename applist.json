@@ -89,6 +89,11 @@
                         "Name":  "anydesk.install",
                         "Args":  null,
                         "Enable": true
+                    },
+                    {
+                        "Name":  "insomnia",
+                        "Args":  null,
+                        "Enable": true
                     }
                 ],
     "custom": [
