@@ -4,7 +4,7 @@
  . Instala uma lista de aplicativos utilizando o repositório Chocolatey.
  . Instala Office de forma customizada via deployment sempre com o pacote mais recente.
  . Ativa o Windows (Licença Digital) e Office (180dias + Renew)
- . Para adicionar, editar ou remover pacotes basta editar o arquivo applist.json mantendo a estrutura atual.
+ . Para adicionar, editar ou remover pacotes basta criar um fork para seu git e editar o arquivo applist.json mantendo a estrutura atual.
  . Para editar a instalação do Office basta editar o arquivo deployment_office2021.xml.
 .EXAMPLE
  Iniciar instalação pelo teclado Win+R, Powershell Terminal ou Script .ps1
